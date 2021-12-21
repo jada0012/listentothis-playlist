@@ -1,0 +1,5 @@
+fuzzywuzzy==0.18.0
+praw==7.4.0
+python-dotenv==0.19.2
+schedule==1.1.0
+spotipy==2.19.0
