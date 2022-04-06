@@ -27,7 +27,7 @@ def main():
         if i['name'] == "Listen to This 2.0":
             PLAYLIST_ID =  i['id']
 
-    with open('ids.txt') as f:
+    with open('D:\\python\\listen_to_this\\ids.txt') as f:
         inplaylist = [line.rstrip() for line in f]
 
 
@@ -50,12 +50,13 @@ def main():
         subreddit = reddit.subreddit("listentothis")
         
         song_titles_toSearch = []
-        similarity = 70
+        similarity = 69
         anotherlist = []
         missed = []
 
-        for submission in subreddit.top("week"):
-            x = submission.title.index('[')
+        for submission in subreddit.top("day"):
+            if "[" in submission.title:
+                x = submission.title.index('[')
             song = submission.title[:x].lower()
             if song :
                 song_titles_toSearch.append(song)
@@ -87,20 +88,20 @@ def main():
                             anotherlist.append(result['id'])
                         
                             break
-                    else:
-                        print(f"the score for title similarity between {resultName} and {title[1]} was {fuzz.partial_ratio(resultName, title[1])} and the score for artist similarity between {resultArtists} and {title[0]} was {fuzz.partial_ratio(resultArtists, title[0])}")
-                        missed.append(title)
-            else:
-                print(f"{title[1]} {title[0]} could not be found")
+             
+                
 
-
+        print("on to add items")
         sp.playlist_add_items(playlist_id=PLAYLIST_ID, items=anotherlist)
-        with open('ids.txt', 'a') as f:
+        with open('D:\\python\\listen_to_this\\ids.txt', 'a') as f:
             for line in anotherlist:
                 f.write(line)
                 f.write('\n')
                 
-    schedule.every().day.at("13:30").do(addSongs)
+    
+    schedule.every().day.at("20:30").do(addSongs)
+    
+    
     
     while True:
         schedule.run_pending()
