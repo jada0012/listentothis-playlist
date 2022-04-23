@@ -27,7 +27,7 @@ for i in playlists['items']:
     if i['name'] == "Listen to This 2.0":
         PLAYLIST_ID =  i['id']
 
-with open('D:\\python\\listen_to_this\\ids.txt') as f:
+with open('C:\Users\\bobei\\python\\listentothis-playlist\\ids.txt') as f:
     inplaylist = [line.rstrip() for line in f]
 
 
@@ -92,7 +92,7 @@ def addSongs(time):
 
 
     sp.playlist_add_items(playlist_id=PLAYLIST_ID, items=anotherlist)
-    with open('D:\\python\\listen_to_this\\ids.txt', 'a') as f:
+    with open('C:\Users\\bobei\\python\\listentothis-playlist\\ids.txt', 'a') as f:
         for line in anotherlist:
             f.write(line)
             f.write('\n')

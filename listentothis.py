@@ -27,7 +27,7 @@ def main():
         if i['name'] == "Listen to This 2.0":
             PLAYLIST_ID =  i['id']
 
-    with open('D:\\python\\listen_to_this\\ids.txt') as f:
+    with open('ids.txt') as f:
         inplaylist = [line.rstrip() for line in f]
 
 
