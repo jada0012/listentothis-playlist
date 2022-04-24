@@ -1,4 +1,5 @@
 import os 
+import pathlib
 import praw
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
@@ -7,6 +8,8 @@ import schedule
 import time
 from dotenv import load_dotenv
 load_dotenv()
+
+ID_PATH = pathlib.Path.cwd() / "ids.txt"
 
 SCOPE= "user-read-private, playlist-modify-private, playlist-modify-public, playlist-read-private, user-library-read, user-read-currently-playing, user-follow-modify, user-follow-read, user-read-recently-played"
 
@@ -27,7 +30,7 @@ for i in playlists['items']:
     if i['name'] == "Listen to This 2.0":
         PLAYLIST_ID =  i['id']
 
-with open('C:\Users\\bobei\\python\\listentothis-playlist\\ids.txt') as f:
+with open(ID_PATH) as f:
     inplaylist = [line.rstrip() for line in f]
 
 
@@ -92,7 +95,7 @@ def addSongs(time):
 
 
     sp.playlist_add_items(playlist_id=PLAYLIST_ID, items=anotherlist)
-    with open('C:\Users\\bobei\\python\\listentothis-playlist\\ids.txt', 'a') as f:
+    with open(ID_PATH, 'a') as f:
         for line in anotherlist:
             f.write(line)
             f.write('\n')
@@ -100,4 +103,5 @@ def addSongs(time):
     
     
     
+# print(ID_PATH)
 addSongs("day")
