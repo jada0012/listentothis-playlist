@@ -5,11 +5,12 @@ from spotipy.oauth2 import SpotifyOAuth
 from fuzzywuzzy import fuzz
 import schedule
 import time
+import pathlib
 from dotenv import load_dotenv
 load_dotenv()
 
 SCOPE= "user-read-private, playlist-modify-private, playlist-modify-public, playlist-read-private, user-library-read, user-read-currently-playing, user-follow-modify, user-follow-read, user-read-recently-played"
-
+ID_PATH = pathlib.Path.cwd() / "ids.txt"
 sp =  spotipy.Spotify(auth_manager = SpotifyOAuth(client_id=os.getenv('CLIENT_ID'), client_secret=os.getenv('CLIENT_SECRET'), redirect_uri="https://example.com", scope = SCOPE))
 #sp.user_playlist_create(user='5kbehkqoyiok15qrj7uxo55d4', name='Listen to This 2.0', public=True, collaborative=False, description="testing out spotipy")
 
@@ -27,7 +28,7 @@ def main():
         if i['name'] == "Listen to This 2.0":
             PLAYLIST_ID =  i['id']
 
-    with open('ids.txt') as f:
+    with open(ID_PATH) as f:
         inplaylist = [line.rstrip() for line in f]
 
 
@@ -93,7 +94,7 @@ def main():
 
         print("on to add items")
         sp.playlist_add_items(playlist_id=PLAYLIST_ID, items=anotherlist)
-        with open('D:\\python\\listen_to_this\\ids.txt', 'a') as f:
+        with open(ID_PATH, 'a') as f:
             for line in anotherlist:
                 f.write(line)
                 f.write('\n')
